@@ -2,7 +2,7 @@
 Roughly following [this tutorial](https://phonopy.github.io/phonopy/vasp.html) on the Phonopy Github page and [this tutorial](https://www.youtube.com/watch?v=FX7WjL074g4) on youtube (_Phonon Calculations in Materials Science using VASP & phonopy by Rasoul Khaledi_).
 
 ## Relaxation
-Find or create a [POSCAR](./Relaxation/POSCAR) for the desired structure. [Materials Project](https://next-gen.materialsproject.org/materials) is a useful database for structures. Relax the POSCAR file using VASP. This will require appropriate [INCAR](./Relaxation/INCAR), [KPOINTS](./Relaxation/KPOINTS), and POTCAR files. The relaxed output CONTCAR will be used as the input [POSCAR](./Forces/POSCAR) in future steps.
+Find or create a [POSCAR](./Relaxation/POSCAR) for the desired structure. [Materials Project](https://next-gen.materialsproject.org/materials) is a useful database for structures. Relax the POSCAR file using VASP. This will require appropriate [INCAR](./Relaxation/INCAR), [KPOINTS](./Relaxation/KPOINTS), and POTCAR files. In best practices, the kpoints (in the KPOINTS file) and ENCUT (in the INCAR file) used in the relaxation steps should be converged appropriately. The relaxed output CONTCAR will be used as the input [POSCAR](./Forces/POSCAR) in future steps.
 ## Pre-process
 To choose the supercell, refer to the relaxed [POSCAR](./Forces/POSCAR). A 2 2 2 supercell is typical, but a noncubic unit cell might need more or fewer cells along a certain axis. For example, the Si unit cell is cubic and a 2 2 2 supercell is sufficient for the purposes of this example. A supercell as large as 4 4 4 can be used for VASP, but is not recommended as it requires a longer calculation.
 To generate the 2 2 2 supercell with no symmetry and automatic primitive axes, replace <POSCAR> with the name of the POSCAR file, ie POSCAR or POSCAR-unitcell:  
@@ -31,3 +31,5 @@ It is recommended to plot this data in Python, as in [phonopy-plot.ipynb](./phon
 The Python module Phonopy has to be installed manually onto the arcc using conda. [This page](https://phonopy.github.io/phonopy/install.html) on the phonopy github has a useful tutorial, as well as [this page](https://arccwiki.atlassian.net/wiki/spaces/DOCUMENTAT/pages/7504145/Miniconda#Install-Packages-into-a-Miniconda-Environment-in-Your-Home-Directory) on the arcc wiki. To activate the phonopy conda environment, enter the following and replace <phonopy-env> with the name of the conda phonopy environment:  
 `% module load miniconda3/23.11.0  
 % conda activate _<phonopy-env>_`  
+It is best practice to use an interactive node while running phonopy commands, the command for which on Medicine Bow is:
+`% srun -n 2 -N 1 -t 2:00:00 -A <account> --pty /bin/bash -l`
