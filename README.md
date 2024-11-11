@@ -12,7 +12,7 @@ This will generate a number of POSCAR-_{number}_ files to be used in the next st
 Calculations using the finite displacement method are completed through force calculations on the generated POSCAR-_{number}_ files. This will require appropriate [INCAR](./Forces/INCAR), [KPOINTS](./Forces/KPOINTS), and POTCAR files.  
 It is important that in this calculation step the structures are **not** relaxed.   
 The KPOINT mesh may be relatively small, in the provided example a Gamma mesh of 6 6 6 is used.   
-Copy each POSCAR-_{number}_ into a disp-00 _{number}_ directory along with INCAR, KPOINTS, and POTCAR files. The [prepare.sh](./Forces/prepare.sh), [submit.sh](./Forces/submit.sh), and [prepare_reset.sh](./Forces/prepare_reset.sh) bash scripts can help in automating this process. In order to run .sh files, the permissions may need to be changed using the chmod command.  
+Copy each POSCAR-_{number}_ into a disp- _{number}_ directory along with INCAR, KPOINTS, and POTCAR files. The [prepare_vasp.sh](./Forces/prepare_vasp.sh), [batch_submit_vasp.sh](./Forces/batch_submit_vasp.sh), and [prepare_reset.sh](./Forces/prepare_reset.sh) bash scripts can help in automating this process. In order to run .sh files, the permissions may need to be changed using the chmod command.  
 `% chmod +x ./<filename.sh>`   
 Once the calculation has completed, create FORCE_SETS using phonopy. Alter the numbers in the curly braces to reflect the lowest and highest number disp-00 _{number}_ directories.  
 `% phonopy -f disp-{0001..0012}/vasprun.xml`  
