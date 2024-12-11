@@ -1,0 +1,86 @@
+#===============================================================================
+# Author: M.
+# Rev:    AJ (ajense28)
+# Date:   25 Oct 2024
+# Description: 
+# Submit script to for vasp on MedicineBow for design-lab account. Generates a 
+# run_$JOB_NAME file and submits it.
+# to use: ./submit_vasp <no-of-tasks> <no-of-CPUS-per-task> <job-name>
+# to get emails change the --mail-user tag on line ~55
+#===============================================================================
+
+#!/bin/bash
+
+args=("$@")
+
+if ! ((${#args[@]}==3)); then
+  echo -e "Error: Need 3 arguments --- suggested usage\n submit_vasp <no-of-tasks> <no-of-CPUS-per-task> <job-name> \n"
+  exit 64
+fi
+
+# Input variables
+# Python code
+# Number of MPI tasks per node:
+TASK=${args[0]}
+# Number of OMP threads per MPI process:
+CPUS=${args[1]}
+# What you'd like your job to be called (e.g. final_final_job_v4):
+JOB_NAME=${args[2]}
+
+# Other variables
+# Number of nodes intended:
+NODE=1
+# memory per core:
+MEM=30GB
+# Time for the job:
+TIME=12:00:00
+
+# Generate particular job submit script
+SCRIPT_NAME=run_$JOB_NAME
+
+PROC=$((NODE * TASK))
+
+cat > $SCRIPT_NAME<<!
+#!/bin/bash
+#SBATCH --nodes=$NODE
+#SBATCH --ntasks-per-node=$TASK
+#SBATCH --cpus-per-task=$CPUS
+#SBATCH --account=design-lab
+#SBATCH --time=$TIME
+#SBATCH --job-name=$JOB_NAME
+#SBATCH --output=$JOB_NAME.out
+#SBATCH --partition=teton
+#SBATCH --mem=$MEM
+#SBATCH --mail-type=ALL
+##SBATCH --mail-user=username@email.com # change to your email here, if you want to receive emails
+
+cd \$SLURM_SUBMIT_DIR
+
+export OMP_NUM_THREADS=$CPUS
+
+module load gcc/14.2.0 openmpi/5.0.5 fftw/3.3.10-ompi openblas/0.3.24 netlib-scalapack/2.2.0-ompi wannier90/3.1.0 hdf5/1.14.3__hl_True__fortran_True-ompi
+
+start=$(date +'%D %T')
+echo "Start:" $start
+
+# this path is account and software specific ***
+/usr/bin/time -o job_statistics.out --verbose srun /project/design-lab/software/VASP/vasp.6.3.2/bin/vasp_std
+
+end=$(date +'%D %T')
+echo "End:" $end
+
+!
+
+JOBID=($(sbatch $SCRIPT_NAME))
+JOBID=${JOBID[3]}
+printf "\n"
+echo "  Job is queued. Job ID is: $JOBID"
+
+start_secs=$(date --date="$start" '+%s')
+end_secs=$(date --date="$end"   '+%s')
+duration=$((end_secs - start_secs))
+
+cat >> $SCRIPT_NAME<<!
+#$JOBID
+
+!
