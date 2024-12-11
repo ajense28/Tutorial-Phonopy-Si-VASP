@@ -21,7 +21,7 @@ if [ $disp -lt 10 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
@@ -35,7 +35,7 @@ elif [ $disp -lt 100 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
@@ -48,7 +48,7 @@ elif [ $disp -lt 100 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
@@ -62,7 +62,7 @@ elif [ $disp -lt 1000 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
@@ -75,7 +75,7 @@ elif [ $disp -lt 1000 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
@@ -88,7 +88,7 @@ elif [ $disp -lt 1000 ]; then
         do
         mkdir disp-"$i"
         cd disp-"$i"   
-        cp ../run_vasp.sh3 .
+        cp ../submit_vasp .
         cp ../KPOINTS .
         cp ../INCAR .
         cp ../POTCAR .
