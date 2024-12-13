@@ -14,8 +14,8 @@ It is important that in this calculation step the structures are **not** relaxed
 The KPOINT mesh may be relatively small, in the provided example a Gamma mesh of 6 6 6 is used.   
 Copy each POSCAR-_{number}_ into a disp- _{number}_ directory along with INCAR, KPOINTS, and POTCAR files. The [prepare_vasp.sh](./Forces/prepare_vasp.sh), [batch_submit_vasp.sh](./Forces/batch_submit_vasp.sh), and [prepare_reset.sh](./Forces/prepare_reset.sh) bash scripts can help in automating this process. In order to run .sh files, the permissions may need to be changed using the chmod command.  
 `% chmod +x ./<filename.sh>`   
-Once the calculation has completed, create FORCE_SETS using phonopy. Alter the numbers in the curly braces to reflect the lowest and highest number disp-00 _{number}_ directories.  
-`% phonopy -f disp-{0001..0012}/vasprun.xml`  
+Once the calculation has completed, create FORCE_SETS using phonopy. Alter the numbers in the curly braces to reflect the lowest and highest number disp- _{number}_ directories.  
+`% phonopy -f disp-{1..12}/vasprun.xml`  
 ## Post-process
 The following commands are used to generate plottable data as well as phonopy-generated plots. The -s tag will save each plot as a pdf. Configuration files are useful for this process. [Mesh.conf](./Forces/mesh.conf) is used to generate the Phonon Density of States (DOS) and Thermal Properties data.  
 ### Phonon DOS:
