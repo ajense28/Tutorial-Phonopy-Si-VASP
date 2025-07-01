@@ -19,12 +19,12 @@ Once the calculation has completed, create FORCE_SETS using phonopy, with <dirs>
 ## Post-process
 The following commands are used to generate plottable data as well as phonopy-generated plots. The -s tag will save each plot as a pdf. Configuration files are useful for this process. [Mesh.conf](./Forces/mesh.conf) is used to generate the Phonon Density of States (DOS) and Thermal Properties data.  
 ### Phonon DOS:
-`phonopy-load -p -s mesh.conf`  
+`phonopy-load -p -s --config mesh.conf`  
 ### Thermal Properties:
-`phonopy-load -p -s -t mesh.conf`  
+`phonopy-load -p -s -t --config mesh.conf`  
 ### Band Structure:
 [Band.conf](./Forces/band.conf) is used to generate the Phonon Band Structure.  
-`phonopy-load -p -s band.conf`  
+`phonopy-load -p -s --config band.conf`  
   
 It is recommended to plot this data in Python, as in [phonopy-plot.ipynb](./phonopy-plot.ipynb). 
 ## Phonopy Setup (ARCC HPC)
